@@ -15,10 +15,282 @@
                     <div th:replace="fragments/header::topnav"></div>
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
+                        <button type="button" class="btn btn-sm btn-outline-primary btn-icon-split" data-toggle="modal" data-target="#modalInsert">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Insert Employee</span>
+                        </button>
+                        <br>
+                        <br>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Employee Data</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th> 
+                                                <th hidden="">ID</th> 
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th hidden="">Phone</th>
+                                                <th hidden="">Email</th>
+                                                <th hidden="">Role</th>
+                                                <th hidden="">ID Role</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th> 
+                                                <th hidden="">ID</th> 
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th hidden="">Phone</th>
+                                                <th hidden="">Email</th>
+                                                <th hidden="">Role</th>
+                                                <th hidden="">ID Role</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr th:each=" employee,no : ${employee}">
+                                                <td id="no" th:text="${no.count}"></td>
+                                                <td id="id" hidden="" th:text="${employee.id}"></td>
+                                                <td id="name" th:text="${employee.name}"></td>
+                                                <td id="lastname" th:text="${employee.lastname}"></td>
+                                                <td hidden="" id="phone" th:text="${employee.phone}"></td>
+                                                <td hidden="" id="email" th:text="${employee.email}"></td>
+                                                <td id="password" hidden="" th:text="${employee.password}"></td>
+                                                <td hidden="" id="isactive" th:text="${employee.isactive}"></td>
+                                                <td hidden="" id="role" th:text="${employee.role.name}"></td>
+                                                <td id="roleId" hidden="" th:text="${employee.role.id}"></td>
+                                                <td>
+                                                    <a th:href="@{'/admin/employee/delete/' + ${employee.id}}" class="btn btn-sm btn-outline-danger">
+                                                        <span class="icon">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </a>
+                                                    <button data-target="#modalEdit" data-toggle="modal" type="button" class="btn btn-sm btn-outline-primary">
+                                                        <span class="icon">
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </button>
+                                                    <button data-target="#modalDetail" data-toggle="modal" type="button" class="btn btn-sm btn-outline-success">
+                                                        <span class="icon">
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Modal Insert-->
+                            <div class="modal fade" id="modalInsert" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Form Employee</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <form th:action="@{/admin/employee/save}" method="POST" class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">First Name</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" name="name" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Last Name</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" name="lastname" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Phone Number</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="number" name="phone" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">E-Mail Address</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="email" name="email" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Password</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="password" name="password" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Active</label>
+                                                    <div class="col-sm-12">
+                                                        <select name="isactive" class="form-control" required="">
+                                                            <option>None</option>
+                                                            <option th:value="true">Yes</option>
+                                                            <option th:value="false">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Role</label>
+                                                    <div class="col-sm-12">
+                                                        <select name="role" class="form-control" required="">
+                                                            <option>None</option>
+                                                            <option th:each="role : ${role}" th:value="${role.id}" th:text="${role.name}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12 col-sm-offset-2">
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of Modal Insert-->
+                            
+                            <!-- Modal Edit-->
+                            <div class="modal fade" id="modalEdit" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit Employee</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <form th:action="@{/admin/employee/edit}" method="POST" class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">ID</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" id="modalId" name="id" class="form-control" value="" readonly="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">First Name</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" id="modalName" name="name" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Last Name</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" id="modalLastName" name="lastname" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Phone Number</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="number" id="modalPhone" name="phone" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">E-Mail Address</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="email" id="modalEmail" name="email" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Password</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="password" id="modalPassword" name="password" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Active</label>
+                                                    <div class="col-sm-12">
+                                                        <select name="isactive" class="form-control" id="modalActive" required="">
+                                                            <option>None</option>
+                                                            <option th:value="true">Yes</option>
+                                                            <option th:value="false">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Role</label>
+                                                    <div class="col-sm-12">
+                                                        <select name="role" class="form-control" id="modalRole" required="">
+                                                            <option>None</option>
+                                                            <option th:each="role : ${role}" th:value="${role.id}" th:text="${role.name}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12 col-sm-offset-2">
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of Modal Edit-->
+                            
+                            <!-- Modal Detail-->
+                            <div class="modal fade" id="modalDetail">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
 
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Employee Page</h1>
+                                  <!-- Modal Header -->
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Detail</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
 
+                                  <!-- Modal body -->
+                                  <div class="modal-body">
+                                      <div class="row">
+                                          <div class="col col-sm-4"><tr><th>First Name:</th></tr></div>
+                                          <div class="col col-sm-8"><tr><td id="nameDetail"></td></tr></div>
+                                          <div class="col col-sm-4"><tr><th>Last Name:</th></tr></div>
+                                          <div class="col col-sm-8"><tr><td id="lastnameDetail"></td></tr></div>
+                                          <div class="col col-sm-4"><tr><th>Phone Number:</th></tr></div>
+                                          <div class="col col-sm-8"><tr><td id="phoneDetail"></td></tr></div>
+                                          <div class="col col-sm-4"><tr><th>E-Mail Address:</th></tr></div>
+                                          <div class="col col-sm-8"><tr><td id="emailDetail"></td></tr></div>
+                                          <div class="col col-sm-4"><tr><th>Password:</th></tr></div>
+                                          <div class="col col-sm-8"><tr><td id="passwordDetail"></td></tr></div>
+                                          <div class="col col-sm-4"><tr><th>Role:</th></tr></div>
+                                          <div class="col col-sm-8"><tr><td id="roleDetail"></td></tr></div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Modal footer -->
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                            <!-- End Modal Detail -->
+                        
+                        </div>
                     </div>
                     <!-- /.container-fluid -->  
                 </div>
@@ -29,5 +301,55 @@
         </div>
         <!-- End of Page Wrapper -->
         <div th:replace="fragments/footer::footer"></div>
+        <script>
+            $('#modalEdit').on('show.bs.modal', function (e) {
+                var _button = $(e.relatedTarget);
+                var _row = _button.parents("tr");
+
+                var _id = _row.find("#id").text();
+                var _name = _row.find("#name").text();
+                var _lastname = _row.find("#lastname").text();
+                var _phone = _row.find("#phone").text();
+                var _email = _row.find("#email").text();
+                var _password = _row.find("#password").text();
+                var _isactive = _row.find("#isactive").text();
+                var _role = _row.find("#role").text();
+                var _roleId = _row.find("#roleId").text();
+//                    alert(_isactive);
+                $(this).find('#modalId').val(_id);
+                $(this).find('#modalName').val(_name);
+                $(this).find('#modalLastName').val(_lastname);
+                $(this).find('#modalPhone').val(_phone);
+                $(this).find('#modalEmail').val(_email);
+                $(this).find('#modalPassword').val(_password);
+                $(this).find('#modalActive').val(_isactive);
+                $(this).find('#modalRole').val(_role);
+                $(this).find('#modalRole').val(_roleId);
+            });
+        </script>
+        <script>
+            $('#modalDetail').on('show.bs.modal', function (e) {
+                var _button = $(e.relatedTarget);
+                var _row = _button.parents("tr");
+
+                var _id = _row.find("#id").text();
+                var _name = _row.find("#name").text();
+                var _lastname = _row.find("#lastname").text();
+                var _phone = _row.find("#phone").text();
+                var _email = _row.find("#email").text();
+                var _password = _row.find("#password").text();
+                var _role = _row.find("#role").text();
+                var _roleId = _row.find("#roleId").text();
+//                    alert(_name);
+                $(this).find('#idDetail').text(_id);
+                $(this).find('#nameDetail').text(_name);
+//                $(this).find('#modalLastName').val(_lastname);
+//                $(this).find('#modalPhone').val(_phone);
+//                $(this).find('#modalEmail').val(_email);
+//                $(this).find('#modalPassword').val(_password);
+//                $(this).find('#modalRole').val(_role);
+//                $(this).find('#modalRole').val(_roleId);
+            });
+        </script>
     </body>
 </html>

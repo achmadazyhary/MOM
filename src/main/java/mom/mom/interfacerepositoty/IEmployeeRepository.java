@@ -6,6 +6,7 @@
 package mom.mom.interfacerepositoty;
 
 import mom.mom.model.Employee;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IEmployeeRepository extends CrudRepository<Employee, Integer>{
     
+    @Query(value = "SELECT * FROM employee WHERE email =?1", nativeQuery = true)
+    public Employee findByEmail(String email);
 }

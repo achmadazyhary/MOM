@@ -15,10 +15,377 @@
                     <div th:replace="fragments/header::topnav"></div>
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
+                        <button type="button" class="btn btn-sm btn-outline-primary btn-icon-split" data-toggle="modal" data-target="#modalInsert">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Insert Customer</span>
+                        </button>
+                        <br>
+                        <br>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Customer Data</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th> 
+                                                <th hidden="">ID</th> 
+                                                <th>Company</th> 
+                                                <th>PIC</th>
+                                                <th hidden="">Phone</th>
+                                                <th hidden="">Email</th>
+                                                <th hidden="">Address</th>
+                                                <th hidden="">Province</th>
+                                                <th hidden="">ID Province</th>
+                                                <th hidden="">District</th>
+                                                <th hidden="">ID District</th>
+                                                <th hidden="">Sub-District</th>
+                                                <th hidden="">ID Sub-District</th>
+                                                <th hidden="">Urban-Village</th>
+                                                <th hidden="">ID Urban-Village</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th> 
+                                                <th hidden="">ID</th> 
+                                                <th>Company</th> 
+                                                <th>PIC</th>
+                                                <th hidden="">Phone</th>
+                                                <th hidden="">Email</th>
+                                                <th hidden="">Address</th>
+                                                <th hidden="">Province</th>
+                                                <th hidden="">ID Province</th>
+                                                <th hidden="">District</th>
+                                                <th hidden="">ID District</th>
+                                                <th hidden="">Sub-District</th>
+                                                <th hidden="">ID Sub-District</th>
+                                                <th hidden="">Urban-Village</th>
+                                                <th hidden="">ID Urban-Village</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr th:each=" customer,no : ${customer}">
+                                                <td id="no" th:text="${no.count}"></td>
+                                                <td hidden="" id="id" th:text="${customer.id}"></td>
+                                                <td id="name" th:text="${customer.name}"></td>
+                                                <td id="pic" th:text="${customer.pic}"></td>
+                                                <td hidden="" id="phone" th:text="${customer.phone}"></td>
+                                                <td hidden="" id="email" th:text="${customer.email}"></td>
+                                                <td hidden="" id="address" th:text="${customer.address}"></td>
+                                                <td hidden="" id="province" th:text="${customer.province.name}"></td>
+                                                <td hidden="" id="provinceId" th:text="${customer.province.id}"></td>
+                                                <td hidden="" id="district" th:text="${customer.district.name}"></td>
+                                                <td hidden="" id="districtId" th:text="${customer.district.id}"></td>
+                                                <td hidden="" id="subdistrict" th:text="${customer.subdistrict.name}"></td>
+                                                <td hidden="" id="subdistrictId" th:text="${customer.subdistrict.id}"></td>
+                                                <td hidden="" id="urbanvillage" th:text="${customer.urbanvillage.name}"></td>
+                                                <td hidden="" id="urbanvillageId" th:text="${customer.urbanvillage.id}"></td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-outline-danger">
+                                                        <span class="icon">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </a>
+                                                    <button data-target="#modalEdit" data-toggle="modal" type="button" class="btn btn-sm btn-outline-primary">
+                                                        <span class="icon">
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </button>
+                                                    <button data-target="#modalDetail" data-toggle="modal" type="button" class="btn btn-sm btn-outline-success">
+                                                        <span class="icon">
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Modal Insert-->
+                            <div class="modal fade" id="modalInsert" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered" style="min-width: 65%;">
+                                    <div class="modal-content" style="min-height: 70vh;">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Form Customer</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <div class="container">
+                                                <form th:action="@{/admin/customer/save}" method="POST" class="form-horizontal" role="form">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">Company Name</label>
+                                                                <input type="text" name="name" class="form-control" value="" required="required">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">PIC</label>
+                                                                <input type="text" name="pic" class="form-control" value="" required="required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="input" class="control-label">E-Mail Address</label>
+                                                            <input type="email" name="email" class="form-control" value="" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">Phone Number</label>
+                                                                <input type="number" name="phone" class="form-control" value="" required="required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">Address</label>
+                                                                <input type="text" name="address" class="form-control" value="" required="required">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">Province</label>
+                                                                <select name="province" class="form-control" required="">
+                                                                    <option>None</option>
+                                                                    <option th:each="province : ${province}" th:value="${province.id}" th:text="${province.name}"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">District</label>
+                                                                <select name="district" class="form-control" required="">
+                                                                    <option>None</option>
+                                                                    <option th:each="district : ${district}" th:value="${district.id}" th:text="${district.name}"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">Sub-District</label>
+                                                                <select name="subdistrict" class="form-control" required="">
+                                                                    <option>None</option>
+                                                                    <option th:each="subdistrict : ${subdistrict}" th:value="${subdistrict.id}" th:text="${subdistrict.name}"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="input" class="control-label">Urban-Village</label>
+                                                                <select name="urbanvillage" class="form-control" required="">
+                                                                    <option>None</option>
+                                                                    <option th:each="urbanvillage : ${urbanvillage}" th:value="${urbanvillage.id}" th:text="${urbanvillage.name}"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of Modal Insert-->
+                            
+                            <!-- Modal Edit-->
+                            <div class="modal fade" id="modalEdit" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered" style="min-width: 65%;">
+                                    <div class="modal-content" style="min-height: 70vh;">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit Employee</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <form th:action="@{/admin/customer/edit}" method="POST" class="form-horizontal" role="form">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">ID</label>
+                                                            <input id="modalId" type="text" name="id" class="form-control" value="" readonly="" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">Company Name</label>
+                                                            <input type="text" id="modalName" name="name" class="form-control" value="" required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">PIC</label>
+                                                            <input type="text" id="modalPic" name="pic" class="form-control" value="" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label for="input" class="control-label">E-Mail Address</label>
+                                                        <input type="email" id="modalEmail" name="email" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">Phone Number</label>
+                                                            <input type="number" id="modalPhone" name="phone" class="form-control" value="" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">Address</label>
+                                                            <input type="text" id="modalAddress" name="address" class="form-control" value="" required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">Province</label>
+                                                            <select name="province" class="form-control" id="modalProvince" required="">
+                                                                <option>None</option>
+                                                                <option th:each="province : ${province}" th:value="${province.id}" th:text="${province.name}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">District</label>
+                                                            <select name="district" class="form-control" id="modalDistrict" required="">
+                                                                <option>None</option>
+                                                                <option th:each="district : ${district}" th:value="${district.id}" th:text="${district.name}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">Sub-District</label>
+                                                            <select name="subdistrict" class="form-control" id="modalSubDistrict" required="">
+                                                                <option>None</option>
+                                                                <option th:each="subdistrict : ${subdistrict}" th:value="${subdistrict.id}" th:text="${subdistrict.name}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="input" class="control-label">Urban-Village</label>
+                                                            <select name="urbanvillage" class="form-control" id="modalUrbanVillage" required="">
+                                                                <option>None</option>
+                                                                <option th:each="urbanvillage : ${urbanvillage}" th:value="${urbanvillage.id}" th:text="${urbanvillage.name}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of Modal Edit-->
+                            
+                            <!-- Modal Detail-->
+                            <div class="modal fade" id="modalDetail">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
 
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Customer Page</h1>
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Detail</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
 
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                                <tr>
+                                                    <th class="">Company:</th>
+                                                    <td class="">PT. Mitra Integrasi Informatika</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">PIC:</th>
+                                                    <td class="">Joko Santosa</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">Phone Number:</th>
+                                                    <td class="">081234567xxx</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">E-Mail Address:</th>
+                                                    <td class="">joko.santosa@mii.co.id</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">Address:</th>
+                                                    <td class="">Jl. S. Parman</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">Province:</th>
+                                                    <td class="">DKI Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">District:</th>
+                                                    <td class="">Jakarta Barat</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">Sub-District:</th>
+                                                    <td class="">Grogol Petmaburan</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="">Urban-Village:</th>
+                                                    <td class="">Tomang</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal Detail -->
+                        
+                        </div>
                     </div>
                     <!-- /.container-fluid -->  
                 </div>
@@ -29,5 +396,50 @@
         </div>
         <!-- End of Page Wrapper -->
         <div th:replace="fragments/footer::footer"></div>
+        <script>
+            $('#modalEdit').on('show.bs.modal', function (e){
+                var button = $(e.relatedTarget);
+                var row = button.parents("tr");
+
+                var id = row.find("#id").text();
+                var name = row.find("#name").text();
+                var pic = row.find("#pic").text();
+                var email = row.find("#email").text();
+                var phone = row.find("#phone").text();
+                var address = row.find("#address").text();
+                var province = row.find("#province").text();
+                var provinceId = row.find("#provinceId").text();
+                var district = row.find("#district").text();
+                var districtId = row.find("#districtId").text();
+                var subdistrict = row.find("#subdistrict").text();
+                var subdistrictId = row.find("#subdistrictId").text();
+                var urbanvillage = row.find("#urbanvillage").text();
+                var urbanvillageId = row.find("#urbanvillageId").text();
+//                alert(province);
+                
+                $(this).find('#modalId').val(id);
+                $(this).find('#modalName').val(name);
+                $(this).find('#modalPic').val(pic);
+                $(this).find('#modalEmail').val(email);
+                $(this).find('#modalPhone').val(phone);
+                $(this).find('#modalAddress').val(address);
+                $(this).find('#modalProvince').val(province);
+                $(this).find('#modalProvince').val(provinceId);
+                $(this).find('#modalDistrict').val(district);
+                $(this).find('#modalDistrict').val(districtId);
+                $(this).find('#modalSubDistrict').val(subdistrict);
+                $(this).find('#modalSubDistrict').val(subdistrictId);
+                $(this).find('#modalUrbanVillage').val(urbanvillage);
+                $(this).find('#modalUrbanVillage').val(urbanvillageId);
+            });
+        </script>
+        
+        <script>
+            $(document).ready(function (){
+               $('#province').change(function (){
+                   $.getJSON('')
+               }) 
+            });
+        </script>
     </body>
 </html>

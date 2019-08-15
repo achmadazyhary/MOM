@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "status")
@@ -49,6 +49,8 @@ public class Status implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
+    private List<Approval> approvalList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
     private List<Mom> momList;
 
     public Status() {
@@ -57,16 +59,19 @@ public class Status implements Serializable {
     public Status(Integer id) {
         this.id = id;
     }
-
-    public Status(String name) {
-        this.name = name;
-    }
+    
+    
 
     public Status(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    public Status(String name) {
+        this.name = name;
+    }
+
+    
     public Integer getId() {
         return id;
     }
@@ -81,6 +86,15 @@ public class Status implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @XmlTransient
+    public List<Approval> getApprovalList() {
+        return approvalList;
+    }
+
+    public void setApprovalList(List<Approval> approvalList) {
+        this.approvalList = approvalList;
     }
 
     @XmlTransient

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Print Inventori</title>
+</head>
+<body>
+ 
+	<center>
+ 
+		<h2>DATA LAPORAN INVENTORI</h2>
+		<h4>MASTER INVENTORI</h4>
+ 
+	</center>
+ 
+	<table border="1" style="width: 100%">
+		<tr>
+			<th width="1%">No</th>
+                        <th hidden="">Id</th>
+			<th>Nama</th>
+                        <th>Tanggal Update</th>
+                        <th>Jumlah Masuk</th>
+                        <th>Jumlah Keluar</th>
+			
+		</tr>
+
+                <tr th:each="data,no : ${inven}">
+                        <td th:text="${no.count}"></td>
+                        <td hidden="" name="id" th:text="${data.id}">></td>
+                        <td th:text="${data.nama}"></td>
+                        <td th:text="${data.tglUpdate}"></td>
+                        <td th:text="${data.jumlahMasuk}"><</td>
+                        <td th:text="${data.jumlahKeluar}"></td>
+
+                </tr>
+	</table>
+ 
+	<script>
+		window.print();
+	</script>
+ 
+</body>
+</html>

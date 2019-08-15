@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "customermeeting")
@@ -51,6 +51,19 @@ public class Customermeeting implements Serializable {
     public Customermeeting(Integer id) {
         this.id = id;
     }
+
+    public Customermeeting(Integer id, Customer customer, Meeting meeting) {
+        this.id = id;
+        this.customer = customer;
+        this.meeting = meeting;
+    }
+
+    public Customermeeting(Customer customer, Meeting meeting) {
+        this.customer = customer;
+        this.meeting = meeting;
+    }
+    
+    
 
     public Integer getId() {
         return id;

@@ -1,0 +1,582 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta name="description" content="">
+    <div th:replace="fragments/headerE::header-css"></div>
+
+
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <div th:replace="fragments/headerE::sidebar"></div>    
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <div th:replace="fragments/headerE::topnav"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!--                        <button type="button" class="btn btn-sm btn-outline-primary btn-icon-split" data-toggle="modal" data-target="#modalAttendees">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-plus"></i>
+                                                </span>
+                                                <span class="text">Add Attendees</span>
+                                            </button>
+                                            <br>
+                                            <br>-->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Meeting List</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th> 
+                                            <th hidden="">ID</th> 
+                                            <th>Name</th>
+                                            <th hidden="">Project</th>
+                                            <th>Date</th>
+                                            <th hidden="">Time</th>
+                                            <th hidden="">Location</th>
+                                            <th>Type</th>
+                                            <th hidden="">Customer</th>
+                                            <th hidden="">Customer</th>
+                                            <th hidden="">Customer PIC</th>
+                                            <th hidden="">Customer Email</th>
+                                            <th hidden="">Manager</th>
+                                            <th>Manager Name</th>
+                                            <th hidden="">PIC</th>
+                                            <th>PIC Name</th>
+                                            <th hidden="">PIC Last Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No</th> 
+                                            <th hidden="" >ID</th> 
+                                            <th>Name</th>
+                                            <th hidden="">Project</th>
+                                            <th>Date</th>
+                                            <th hidden="">Time</th>
+                                            <th hidden="">Location</th>
+                                            <th>Type</th>
+                                            <th hidden="">Customer</th>
+                                            <th hidden="">Customer</th>
+                                            <th hidden="">Customer PIC</th>
+                                            <th hidden="">Customer Email</th>
+                                            <th hidden="">Manager</th>
+                                            <th>Manager Name</th>
+                                            <th hidden="">PIC</th>
+                                            <th>PIC Name</th>
+                                            <th hidden="">PIC Last Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr th:each=" meeting,no : ${meeting}">
+                                            <td id="no" th:text="${no.count}"></td>
+                                            <td hidden=""  id="id" th:text="${meeting.id}"></td>
+                                            <td id="name" th:text="${meeting.name}"></td>
+                                            <td  hidden="" id="project" th:text="${meeting.project}"></td>
+                                            <td id="date" th:text="${meeting.date}"></td>
+                                            <td  hidden="" id="time" th:text="${meeting.time}"></td>
+                                            <td  hidden="" id="location" th:text="${meeting.location}"></td>
+                                            <td id="type" th:text="${meeting.type}"></td>
+                                            <td  hidden="" id="customerId" th:text="${meeting.customer.id}"></td>
+                                            <td  hidden="" id="customer" th:text="${meeting.customer.name}"></td>
+                                            <td  hidden="" id="customerPic" th:text="${meeting.customer.pic}"></td>
+                                            <td  hidden="" id="customerEmail" th:text="${meeting.customer.email}"></td>
+                                            <td hidden="" id="managerId" th:text="${meeting.manager.id}"></td>
+                                            <td id="manager" th:text="${meeting.manager.name}"></td>
+                                            <td  hidden="" id="picId" th:text="${meeting.pic.id}"></td>
+                                            <td id="pic" th:text="${meeting.pic.name}"></td>
+                                            <td hidden="" id="picLastName" th:text="${meeting.pic.lastname}"></td>
+                                            <td>
+                                                <a th:href="@{'/pic/meeting/delete/' + ${meeting.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <span class="icon">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </a>
+                                                <button data-target="#modalEdit" data-toggle="modal" type="button" class="btn btn-sm btn-outline-primary">
+                                                    <span class="icon">
+                                                        <i class="fas fa-edit"></i>
+                                                    </span>
+                                                </button>
+                                                <button data-target="#modalAttendees"  data-toggle="modal" type="button" class="btn btn-sm btn-outline-primary">
+                                                    <span class="icon">
+                                                        <i class="fas fa-user-plus"></i>
+                                                    </span>
+                                                </button>
+                                                <button data-target="#modalSendEmailCustomer" data-toggle="modal" type="button" class="btn btn-sm btn-outline-primary show-modal">
+                                                    <span class="icon">
+                                                        <i class="fas fa-paper-plane"></i>
+                                                    </span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--Modal Send Mail Customer-->
+                        <div class="modal fade" id="modalSendEmailCustomer" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Send Mail to Customer</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form th:action="@{/pic/meeting2/sendmailcust}" method="POST" class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="modalMeeting" name="meeting" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalProject" name="project" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalDate" name="date" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalTime" name="time" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalLocation" name="location" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalType" name="type" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalCustCompany" name="custCompany" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalCustPic" name="custPic" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalCustEmail" name="custEmail" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalManager" name="manager" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalPic" name="pic" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalPicLastName" name="picLastName" class="form-control" value="" readonly="" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12 col-sm-offset-2">
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Send Mail Customer-->
+
+                        <!--Modal Edit-->
+                        <div class="modal fade" id="modalEdit" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <!--Modal Header--> 
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Form Meeting</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!--Modal Body--> 
+                                    <div class="modal-body">
+                                        <form th:action="@{/pic/meeting/edit}" method="POST" class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">ID</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="modalId" name="id" class="form-control" value="" readonly="" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Meeting</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="modalName" name="name" class="form-control" value="" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Project</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="modalProject" name="project" class="form-control" value="" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Date</label>
+                                                <div class="col-sm-12">
+                                                    <input type="date" id="modalDate" name="date" class="form-control" value="" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Time</label>
+                                                <div class="col-sm-12">
+                                                    <input type="time" id="modalTime" name="time" class="form-control" value="" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Location</label>
+                                                <div class="col-sm-12">
+                                                    <textarea  id="modalLocation" name="location" class="form-control" value="" rows="2" required="required"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" id="modalType" class="col-sm control-label">Type</label>
+                                                <div class="col-sm-12">
+
+                                                    <input type="radio" id="inter" name="type" value="Internal" th:onclick="enableTxtBox()"  checked="checked" />Internal &nbsp; &nbsp; &nbsp;
+                                                    <input  type="radio" id="exter" name="type" value="External" th:onclick="enableTxtBox()" />External
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Customer</label>
+                                                <div class="col-sm-12">
+                                                    <select id="modalCustomer" name="customer" class="form-control" >
+                                                        <!--<option>None</option>-->
+                                                        <option th:each="customer : ${customer}" th:value="${customer.id}" th:text="${customer.name}"></option>
+                                                    </select>
+                                                    <!--<input type="text" id="modalCustomer" name="customerId" class="form-control" value="" readonly="" required="required">-->
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Manager</label>
+                                                <div class="col-sm-12">
+                                                    <select name="manager" class="form-control" id="modalManager">
+                                                        <!--<option>None</option>-->
+                                                        <option th:each="emp : ${emp}" th:value="${emp.id}" th:text="${emp.name}"></option>
+
+                                                    </select>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">PIC</label>
+                                                <div class="col-sm-12">
+                                                    <select   name="pic" class="form-control" id="modalPIC" required="">
+                                                        <option>None</option>
+                                                        <option th:each="emp : ${emp}" 
+                                                                th:value="${emp.id}" 
+                                                                th:text="${emp.name}" >
+                                                            <!--                                                                    th:selected="${employee.id} == ${meeting.pic}">-->
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12 col-sm-offset-2">
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--Modal Footer--> 
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End of Modal Edit-->
+
+                        <!-- Modal Add Attendees-->
+                        <div class="modal fade" id="modalAttendees" role="dialog"> 
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Add Attendees</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+                                        <form th:action="@{/pic/meeting/saveattendees}" method="POST" class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" id="modalId" name="id" class="form-control" value="" readonly="" required="required">
+                                                    </div>
+                                                </div>
+                                                <label for="input" class="col-sm control-label">Meeting</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="modalMeeting" name="meeting" class="form-control" value="" required="required" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Attendees</label>
+                                                <div class="col-sm-12">
+                                                    <select   name="employee" class="form-control" id="" required="">
+                                                        <option>None</option>
+                                                        <option th:each="emp : ${emp}" 
+                                                                th:value="${emp.id}" 
+                                                                th:text="${emp.name}" >
+                                                            <!--th:selected="${employee.id} == ${meeting.pic}"-->
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-12 col-sm-offset-2">
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                </div>
+                                            </div>
+
+
+                                            <div align="center" >
+                                                <table  class="table table-striped table-bordered" style="width: 90%" id="roleTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Meeting</th>
+                                                            <th hidden="">Project</th>
+                                                            <th>Attendees</th>
+                                                            <th hidden="">Attendees Last Name</th>
+                                                            <th hidden="">Attendees Email</th>
+                                                            <th hidden="">Meeting Date</th>
+                                                            <th hidden="">Meeting Time</th>
+                                                            <th hidden="">Location</th>
+                                                            <th hidden="">Type</th>
+                                                            <th hidden="">Customer Company</th>
+                                                            <th hidden="">Customer PIC</th>
+                                                            <th hidden="">Customer Email</th>
+                                                            <th hidden="">Manager</th>
+                                                            <th hidden="">Pic</th>
+                                                            <th hidden="">Pic Last Name</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr th:each=" employeemeeting,no : ${employeemeeting}" >
+                                                            <td th:text="${no.count}"></td>
+                                                            <td id="meeting" th:text="${employeemeeting.meeting.name}"></td>
+                                                            <td hidden="" id="project" th:text="${employeemeeting.meeting.project}"></td>
+                                                            <td id="name" th:text="${employeemeeting.employee.name}"></td>
+                                                            <td hidden="" id="lastName" th:text="${employeemeeting.employee.lastname}"></td>
+                                                            <td hidden="" id="email" th:text="${employeemeeting.employee.email}"></td>
+                                                            <td hidden="" id="date" th:text="${employeemeeting.meeting.date}"></td>
+                                                            <td hidden="" id="time" th:text="${employeemeeting.meeting.time}"></td>
+                                                            <td hidden="" id="location" th:text="${employeemeeting.meeting.location}"></td>
+                                                            <td hidden="" id="type" th:text="${employeemeeting.meeting.type}"></td>
+                                                            <td hidden="" id="custCompany" th:text="${employeemeeting.meeting.customer.name}"></td>
+                                                            <td hidden="" id="custPic" th:text="${employeemeeting.meeting.customer.pic}"></td>
+                                                            <td hidden="" id="custEmail" th:text="${employeemeeting.meeting.customer.email}"></td>
+                                                            <td hidden="" id="manager" th:text="${employeemeeting.meeting.manager.name}"></td>
+                                                            <td hidden="" id="pic" th:text="${employeemeeting.meeting.pic.name}"></td>
+                                                            <td hidden="" id="picLastName" th:text="${employeemeeting.meeting.pic.lastname}"></td>
+
+                                                            <td>
+                                                                <a th:href="@{'/pic/meeting/delete/' + ${employeemeeting.id}}" class="btn btn-sm btn-outline-danger">
+                                                                    <span class="icon">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </span>
+                                                                </a>
+                                                                <button data-target="#modalSendEmail" data-toggle="modal" type="button" id="btnFollowup" class="btn btn-sm btn-outline-primary show-modal">
+                                                                    <span class="icon">
+                                                                        <i class="fas fa-paper-plane"></i>
+                                                                    </span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End of Modal Attendees-->
+
+                        <div class="modal fade" id="modalSendEmail" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Send Email</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form th:action="@{/pic/meeting2/sendmail}" method="POST" class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="modalMeeting" name="meeting" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalProject" name="project" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalName" name="name" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalLastName" name="lastName" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalEmail" name="email" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalDate" name="date" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalTime" name="time" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalLocation" name="location" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalType" name="type" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalCustCompany" name="custCompany" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalCustPic" name="custPic" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalCustEmail" name="custEmail" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalManager" name="manager" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalPic" name="pic" class="form-control" value="" readonly="" required="required">
+                                                    <input type="text" id="modalPicLastName" name="picLastName" class="form-control" value="" readonly="" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12 col-sm-offset-2">
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- /.container-fluid -->  
+            </div>
+            <!-- End of Main Content -->
+            <div th:replace="fragments/headerE::footer"></div>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <div th:replace="fragments/footer::footer"></div>
+    <script>
+        $('#modalEdit').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _id = _row.find("#id").text();
+            var _name = _row.find("#name").text();
+            var _project = _row.find("#project").text();
+            var _date = _row.find("#date").text();
+            var _time = _row.find("#time").text();
+            var _type = _row.find("#type").text();
+            var _customerId = _row.find("#customerId").text();
+            var _customer = _row.find("#customer").text();
+            var _managerId = _row.find("#managerId").text();
+            var _manager = _row.find("#manager").text();
+            var _picId = _row.find("#picId").text();
+            var _pic = _row.find("#pic").text();
+            var _location = _row.find("#location").text();
+    //                    alert(_id);
+            $(this).find('#modalId').val(_id);
+            $(this).find('#modalName').val(_name);
+            $(this).find('#modalProject').val(_project);
+            $(this).find('#modalDate').val(_date);
+            $(this).find('#modalTime').val(_time);
+            $(this).find('#modalType').val(_type);
+            $(this).find('#modalCustomer').val(_customerId);
+    //                $(this).find('#modalCustomer').val(_customer);
+            $(this).find('#modalManager').val(_managerId);
+    //                $(this).find('#modalManager').val(_manager);
+            $(this).find('#modalPIC').val(_picId);
+            $(this).find('#modalLocation').val(_location);
+    //                $(this).find('#modalPIC').val(_pic);
+        });
+    </script>
+    <script>
+        $('#modalAttendees').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _id = _row.find("#id").text();
+            var _meeting = _row.find("#name").text();
+
+    //                    alert(_id);
+            $(this).find('#modalId').val(_id);
+            $(this).find('#modalMeeting').val(_meeting);
+        });
+    </script>
+    <script>
+        $('#modalSendEmail').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _meeting = _row.find("#meeting").text();
+            var _project = _row.find("#project").text();
+            var _name = _row.find("#name").text();
+            var _lastName = _row.find("#lastName").text();
+            var _email = _row.find("#email").text();
+            var _date = _row.find("#date").text();
+            var _time = _row.find("#time").text();
+            var _location = _row.find("#location").text();
+            var _type = _row.find("#type").text();
+            var _custCompany = _row.find("#custCompany").text();
+            var _custPic = _row.find("#custPic").text();
+            var _custEmail = _row.find("#custEmail").text();
+            var _manager = _row.find("#manager").text();
+            var _pic = _row.find("#pic").text();
+            var _picLastName = _row.find("#picLastName").text();
+
+    //                    alert(_id);
+            $(this).find('#modalMeeting').val(_meeting);
+            $(this).find('#modalProject').val(_project);
+            $(this).find('#modalName').val(_name);
+            $(this).find('#modalLastName').val(_lastName);
+            $(this).find('#modalEmail').val(_email);
+            $(this).find('#modalDate').val(_date);
+            $(this).find('#modalTime').val(_time);
+            $(this).find('#modalLocation').val(_location);
+            $(this).find('#modalType').val(_type);
+            $(this).find('#modalCustCompany').val(_custCompany);
+            $(this).find('#modalCustPic').val(_custPic);
+            $(this).find('#modalCustEmail').val(_custEmail);
+            $(this).find('#modalManager').val(_manager);
+            $(this).find('#modalPic').val(_pic);
+            $(this).find('#modalPicLastName').val(_picLastName);
+        });
+    </script>
+    <script>
+        $('#modalSendEmailCustomer').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _meeting = _row.find("#name").text();
+            var _project = _row.find("#project").text();
+            var _date = _row.find("#date").text();
+            var _time = _row.find("#time").text();
+            var _location = _row.find("#location").text();
+            var _type = _row.find("#type").text();
+            var _custCompany = _row.find("#customer").text();
+            var _custPic = _row.find("#customerPic").text();
+            var _custEmail = _row.find("#customerEmail").text();
+            var _manager = _row.find("#manager").text();
+            var _pic = _row.find("#pic").text();
+            var _picLastName = _row.find("#picLastName").text();
+
+    //                    alert(_id);
+            $(this).find('#modalMeeting').val(_meeting);
+            $(this).find('#modalProject').val(_project);
+            $(this).find('#modalDate').val(_date);
+            $(this).find('#modalTime').val(_time);
+            $(this).find('#modalLocation').val(_location);
+            $(this).find('#modalType').val(_type);
+            $(this).find('#modalCustCompany').val(_custCompany);
+            $(this).find('#modalCustPic').val(_custPic);
+            $(this).find('#modalCustEmail').val(_custEmail);
+            $(this).find('#modalManager').val(_manager);
+            $(this).find('#modalPic').val(_pic);
+            $(this).find('#modalPicLastName').val(_picLastName);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#openBtn').click(function () {
+                $('#myModal').modal({
+                    show: true
+                });
+            });
+
+            $(document).on('show.bs.modal', '.modal', function (event) {
+                var zIndex = 1040 + (10 * $('.modal:visible').length);
+                $(this).css('z-index', zIndex);
+                setTimeout(function () {
+                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                }, 0);
+            });
+
+
+        });
+    </script>
+
+</body>
+</html>

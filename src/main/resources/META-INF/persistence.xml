@@ -2,19 +2,25 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="mom_mom_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>mom.mom.model.Urbanvillage</class>
-    <class>mom.mom.model.Meeting</class>
-    <class>mom.mom.model.Role</class>
     <class>mom.mom.model.Mom</class>
     <class>mom.mom.model.Followup</class>
-    <class>mom.mom.model.Employee</class>
     <class>mom.mom.model.Customermeeting</class>
-    <class>mom.mom.model.District</class>
     <class>mom.mom.model.Customer</class>
     <class>mom.mom.model.Employeemeeting</class>
     <class>mom.mom.model.Subdistrict</class>
     <class>mom.mom.model.Status</class>
+    <class>mom.mom.model.Meeting</class>
+    <class>mom.mom.model.Approval</class>
+    <class>mom.mom.model.Mom_1</class>
+    <class>mom.mom.model.Meeting_1</class>
+    <class>mom.mom.model.Status_1</class>
+    <class>mom.mom.model.District</class>
+    <class>mom.mom.model.Employee</class>
     <class>mom.mom.model.Province</class>
+    <class>mom.mom.model.Role</class>
+    <class>mom.mom.model.Urbanvillage</class>
+    <class>mom.mom.model.Activated</class>
+    <class>mom.mom.model.Activation</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mom?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

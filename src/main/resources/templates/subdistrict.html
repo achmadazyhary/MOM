@@ -52,18 +52,18 @@
                                         </tfoot>
                                         <tbody>
                                             <tr th:each=" subdistrict,no : ${subdistrict}">
-                                                <td th:text="${no.count}"></td>
-                                                <td hidden="" th:text="${subdistrict.id}"></td>
-                                                <td th:text="${subdistrict.name}"></td>
-                                                <td th:text="${subdistrict.district.name}"></td>
-                                                <td hidden="" th:text="${subdistrict.district.id}"></td>
+                                                <td id="no" th:text="${no.count}"></td>
+                                                <td id="id" hidden="" th:text="${subdistrict.id}"></td>
+                                                <td id="name" th:text="${subdistrict.name}"></td>
+                                                <td id="district" th:text="${subdistrict.district.name}"></td>
+                                                <td id="districtId" hidden="" th:text="${subdistrict.district.id}"></td>
                                                 <td>
-                                                    <a th:href="@{'/subdistrict/delete/' + ${subdistrict.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <a th:href="@{'/admin/subdistrict/delete/' + ${subdistrict.id}}" class="btn btn-sm btn-outline-danger">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
                                                     </a>
-                                                    <button type="button" class="btn btn-sm btn-outline-primary editModal">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" data-target="#modalEdit" data-toggle="modal">
                                                         <span class="icon">
                                                             <i class="fas fa-edit"></i>
                                                         </span>
@@ -87,7 +87,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/subdistrict/save}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/subdistrict/save}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">Sub-District</label>
                                                 <div class="col-sm-12">
@@ -129,7 +129,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/subdistrict/edit}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/subdistrict/edit}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">ID</label>
                                                 <div class="col-sm-12">
@@ -178,18 +178,19 @@
         <div th:replace="fragments/footer::footer"></div>
         <script>
             $(document).ready(function () {
-                $('.editModal').on('click', function () {
-                    var row = $(this).closest('tr');
-                    var a = row.find('td:eq(1)').text();
-                    var b = row.find('td:eq(2)').text();
-                    var c = row.find('td:eq(3)').text();
-                    var d = row.find('td:eq(4)').text();
-//                    alert(a);
-                    $('#modalEdit').modal();
-                    $('#modalId').val(a);
-                    $('#modalName').val(b);
-                    $('#modalDistrict').val(c);
-                    $('#modalDistrict').val(d);
+                $('#modalEdit').on('show.bs.modal', function (e) {
+                    var btn = $(e.relatedTarget);
+                    var row = btn.parents("tr");
+                    
+                    var a = row.find("#id").text();
+                    var b = row.find("#name").text();
+                    var c = row.find("#district").text();
+                    var d = row.find("#districtId").text();
+//                    alert(b);
+                    $(this).find('#modalId').val(a);
+                    $(this).find('#modalName').val(b);
+                    $(this).find('#modalDistrict').val(c);
+                    $(this).find('#modalDistrict').val(d);
                 });
             });
         </script>

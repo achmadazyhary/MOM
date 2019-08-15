@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "followup")
@@ -83,6 +83,24 @@ public class Followup implements Serializable {
         this.notes = notes;
     }
 
+    public Followup(Integer id, String name, Date targetdate, String notes, Employee pic, Mom mom) {
+        this.id = id;
+        this.name = name;
+        this.targetdate = targetdate;
+        this.notes = notes;
+        this.pic = pic;
+        this.mom = mom;
+    }
+
+    public Followup(String name, Date targetdate, String notes, Employee pic, Mom mom) {
+        this.name = name;
+        this.targetdate = targetdate;
+        this.notes = notes;
+        this.pic = pic;
+        this.mom = mom;
+    }
+
+    
     public Integer getId() {
         return id;
     }

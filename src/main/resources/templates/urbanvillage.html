@@ -61,7 +61,7 @@
                                                 <td th:text="${urbanvillage.subdistrict.name}"></td>
                                                 <td hidden="" th:text="${urbanvillage.subdistrict.id}"></td>
                                                 <td>
-                                                    <a th:href="@{'/urbanvillage/delete/' + ${urbanvillage.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <a th:href="@{'/admin/urbanvillage/delete/' + ${urbanvillage.id}}" class="btn btn-sm btn-outline-danger">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
@@ -90,7 +90,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/urbanvillage/save}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/urbanvillage/save}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">Urban-Village</label>
                                                 <div class="col-sm-12">
@@ -138,7 +138,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/urbanvillage/edit}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/urbanvillage/edit}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">ID</label>
                                                 <div class="col-sm-12">

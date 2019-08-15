@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "urbanvillage")
@@ -69,6 +69,12 @@ public class Urbanvillage implements Serializable {
         this.id = id;
     }
 
+    public Urbanvillage(Integer id, String name, String postalcode) {
+        this.id = id;
+        this.name = name;
+        this.postalcode = postalcode;
+    }
+
     public Urbanvillage(String name, String postalcode, Subdistrict subdistrict) {
         this.name = name;
         this.postalcode = postalcode;
@@ -81,6 +87,8 @@ public class Urbanvillage implements Serializable {
         this.postalcode = postalcode;
         this.subdistrict = subdistrict;
     }
+    
+    
 
     public Integer getId() {
         return id;

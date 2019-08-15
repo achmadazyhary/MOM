@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "district")
@@ -65,6 +65,11 @@ public class District implements Serializable {
         this.id = id;
     }
 
+    public District(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public District(Integer id, String name, Province province) {
         this.id = id;
         this.name = name;
@@ -75,6 +80,8 @@ public class District implements Serializable {
         this.name = name;
         this.province = province;
     }
+     
+    
 
     public Integer getId() {
         return id;

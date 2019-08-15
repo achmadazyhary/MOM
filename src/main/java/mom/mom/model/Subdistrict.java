@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "subdistrict")
@@ -65,15 +65,22 @@ public class Subdistrict implements Serializable {
         this.id = id;
     }
 
-    public Subdistrict(String name, District district) {
-        this.name = name;
-        this.district = district;
-    }
-
     public Subdistrict(Integer id, String name, District district) {
         this.id = id;
         this.name = name;
         this.district = district;
+    }
+
+    public Subdistrict(String name, District district) {
+        this.name = name;
+        this.district = district;
+    }
+    
+    
+
+    public Subdistrict(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {

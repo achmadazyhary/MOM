@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "meeting")
@@ -45,6 +45,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Meeting.findByTime", query = "SELECT m FROM Meeting m WHERE m.time = :time")
     , @NamedQuery(name = "Meeting.findByType", query = "SELECT m FROM Meeting m WHERE m.type = :type")})
 public class Meeting implements Serializable {
+
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 50)
+    @Column(name = "location")
+    private String location;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -92,6 +98,9 @@ public class Meeting implements Serializable {
     @JoinColumn(name = "manager", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee manager;
+    @JoinColumn(name = "activation", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Activation activation;
 
     public Meeting() {
     }
@@ -100,14 +109,39 @@ public class Meeting implements Serializable {
         this.id = id;
     }
 
-    public Meeting(Integer id, String name, String project, Date date, String time, String type) {
+    public Meeting(String location, Integer id, String name, String project, Date date, String time, String type, Customer customer, Employee pic, Employee manager, Activation activation) {
+        this.location = location;
         this.id = id;
         this.name = name;
         this.project = project;
         this.date = date;
         this.time = time;
         this.type = type;
+        this.customer = customer;
+        this.pic = pic;
+        this.manager = manager;
+        this.activation = activation;
     }
+
+    public Meeting(String location, String name, String project, Date date, String time, String type, Customer customer, Employee pic, Employee manager, Activation activation) {
+        this.location = location;
+        this.name = name;
+        this.project = project;
+        this.date = date;
+        this.time = time;
+        this.type = type;
+        this.customer = customer;
+        this.pic = pic;
+        this.manager = manager;
+        this.activation = activation;
+    }
+
+
+   
+
+
+    
+    
 
     public Integer getId() {
         return id;
@@ -208,6 +242,14 @@ public class Meeting implements Serializable {
         this.manager = manager;
     }
 
+    public Activation getActivation() {
+        return activation;
+    }
+
+    public void setActivation(Activation activation) {
+        this.activation = activation;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -231,6 +273,14 @@ public class Meeting implements Serializable {
     @Override
     public String toString() {
         return "mom.mom.model.Meeting[ id=" + id + " ]";
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
     
 }

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "mom")
@@ -38,6 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Mom.findAll", query = "SELECT m FROM Mom m")
     , @NamedQuery(name = "Mom.findById", query = "SELECT m FROM Mom m WHERE m.id = :id")})
 public class Mom implements Serializable {
+
+
+
+    @JoinColumn(name = "pic", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Employee pic;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,6 +57,8 @@ public class Mom implements Serializable {
 //    @Size(min = 1, max = 65535)
     @Column(name = "meetingdesc")
     private String meetingdesc;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mom", fetch = FetchType.LAZY)
+    private List<Approval> approvalList;
     @JoinColumn(name = "meeting", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Meeting meeting;
@@ -72,6 +80,29 @@ public class Mom implements Serializable {
         this.meetingdesc = meetingdesc;
     }
 
+    public Mom(Employee pic) {
+        this.pic = pic;
+    }
+
+    public Mom( Integer id, String meetingdesc, Meeting meeting, Status status, Employee pic) {
+        this.pic = pic;
+        this.id = id;
+        this.meetingdesc = meetingdesc;
+        this.meeting = meeting;
+        this.status = status;
+    }
+
+    public Mom(String meetingdesc, Meeting meeting, Status status, Employee pic) {
+        this.pic = pic;
+        this.meetingdesc = meetingdesc;
+        this.meeting = meeting;
+        this.status = status;
+    }
+
+    
+
+    
+    
     public Integer getId() {
         return id;
     }
@@ -86,6 +117,15 @@ public class Mom implements Serializable {
 
     public void setMeetingdesc(String meetingdesc) {
         this.meetingdesc = meetingdesc;
+    }
+
+    @XmlTransient
+    public List<Approval> getApprovalList() {
+        return approvalList;
+    }
+
+    public void setApprovalList(List<Approval> approvalList) {
+        this.approvalList = approvalList;
     }
 
     public Meeting getMeeting() {
@@ -137,5 +177,14 @@ public class Mom implements Serializable {
     public String toString() {
         return "mom.mom.model.Mom[ id=" + id + " ]";
     }
+
+    public Employee getPic() {
+        return pic;
+    }
+
+    public void setPic(Employee pic) {
+        this.pic = pic;
+    }
+
     
 }

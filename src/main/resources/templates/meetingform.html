@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>  
+        <meta name="description" content="">
+    <div th:replace="fragments/headerE::header-css"></div>
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <div th:replace="fragments/headerE::sidebar"></div>    
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <div th:replace="fragments/headerE::topnav"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Meeting Form</h6>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/pic/meetingform/save}" method="POST" class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Meeting</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="name" class="form-control" value="" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Project</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="project" class="form-control" value="" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Date</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" name="date" class="form-control" value="" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Time</label>
+                                    <div class="col-sm-2">
+                                        <input type="time" name="time" class="form-control" value="" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Location</label>
+                                    <div class="col-sm-12">
+                                        <textarea  name="location" class="form-control" value="" rows="2" required="required"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Type</label>
+                                    <div class="col-sm-12">
+
+                                        <input  type="radio" id="inter" name="type" value="Internal" th:onclick="enableTxtBox()"  checked="checked" />Internal &nbsp; &nbsp; &nbsp;
+                                        <input  type="radio" id="exter" name="type" value="External" th:onclick="enableTxtBox()" />External
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Customer</label>
+                                    <div class="col-sm-12">
+                                        <select name="customer"  th:id="cbCus" class="form-control" readonly>
+                                            <option th:text="None" th:value=2></option>
+                                            <option th:each="customer : ${customer}" th:if="${customer.id} != 2" th:value="${customer.id}" th:text="${customer.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="input" class="col-sm control-label">Manager</label>
+                                    <div class="col-sm-12">
+                                        <select name="manager"  class="form-control">
+                                            <option th:text="None"></option>
+                                            <option th:each="emp : ${emp}" th:if="${emp.role.id} == 5" th:value="${emp.id}" th:text="${emp.name}" ></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                            <input type="hidden" name="pic" class="form-control" th:value="${picId}" required="required">
+<!--                                        <select name="pic"  class="form-control">
+                                            <option th:text="None"></option>
+                                            <option th:each="employee : ${employee}" th:if="${employee.role.id} == 4" th:value="${employee.id}" th:text="${employee.name}"></option>
+                                            mengambil dari session
+                                        </select>-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 col-sm-offset-2">
+                                        <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <!-- /.container-fluid -->  
+            </div>
+            <!-- End of Main Content -->
+            <div th:replace="fragments/headerE::footer"></div>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <div th:replace="fragments/footer::footer"></div>
+    <!--        <script>
+                $(document).ready(function () {
+                    $('.editModal').on('click', function () {
+                        var row = $(this).closest('tr');
+                        var a = row.find('td:eq(1)').text();
+                        var b = row.find('td:eq(2)').text();
+                        var c = row.find('td:eq(3)').text();
+                        var d = row.find('td:eq(4)').text();
+    //                    alert(a);
+                        $('#modalEdit').modal();
+                        $('#modalId').val(a);
+                        $('#modalName').val(b);
+                        $('#modalProvince').val(c);
+                        $('#modalProvince').val(d);
+                    });
+                });
+            </script>-->
+
+    <script type="text/javascript">
+        function enableTxtBox()
+        {
+            if (document.getElementById("inter").checked)
+            {
+                document.getElementById("cbCus").readonly = true;
+            } else if (document.getElementById("exter").checked)
+            {
+                document.getElementById("cbCus").readonly = false;
+            }
+        }
+    </script>
+</body>
+</html>

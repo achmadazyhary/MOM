@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+ <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>  
         <meta name="description" content="">
@@ -40,28 +40,28 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>No</th>
-                                                <th hidden="">ID</th>
+                                                <th>No</th> 
+                                                <th hidden="">ID</th> 
                                                 <th>Name</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                             <tr th:each=" province,no : ${province}">
-                                                <td th:text="${no.count}"></td>
-                                                <td hidden="" th:text="${province.id}"></td>
-                                                <td th:text="${province.name}"></td>
+                                                <td id="no" th:text="${no.count}"></td>
+                                                <td hidden="" id="id" th:text="${province.id}"></td>
+                                                <td id="name" th:text="${province.name}"></td>
                                                 <td>
-                                                    <a th:href="@{'/province/delete/' + ${province.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <a th:href="@{'/admin/province/delete/' + ${province.id}}" class="btn btn-sm btn-outline-danger">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
                                                     </a>
-                                                    <button type="button" class="btn btn-sm btn-outline-primary editModal">
+                                                    <a href="#modalEdit" data-toggle="modal" class="btn btn-sm btn-outline-primary">
                                                         <span class="icon">
                                                             <i class="fas fa-edit"></i>
                                                         </span>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -81,7 +81,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/province/save}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/province/save}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">Province</label>
                                                 <div class="col-sm-12">
@@ -115,7 +115,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/province/edit}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/province/edit}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">ID</label>
                                                 <div class="col-sm-12">
@@ -156,14 +156,21 @@
         <div th:replace="fragments/footer::footer"></div>
         <script>
             $(document).ready(function () {
-                $('.editModal').on('click', function () {
-                    var row = $(this).closest('tr');
-                    var a = row.find('td:eq(1)').text();
-                    var b = row.find('td:eq(2)').text();
-//                    alert(a);
-                    $('#modalEdit').modal();
-                    $('#modalId').val(a);
-                    $('#modalName').val(b);
+                $('#modalEdit').on('show.bs.modal', function (e) {
+                    var _button = $(e.relatedTarget);
+                    var _row = _button.parents("tr");
+                    
+                    var _id = _row.find("#id").text();
+                    if(_id === '' || _id === null){
+                        _id = 'N/A';
+                    }
+                    var _name = _row.find("#name").text();
+                    if(_name === '' || _name === null){
+                        _name = 'N/A';
+                    }
+//                    alert(_name);
+                    $(this).find('#modalId').val(_id);
+                    $(this).find('#modalName').val(_name);
                 });
             });
         </script>

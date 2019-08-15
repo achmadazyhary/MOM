@@ -48,16 +48,16 @@
                                         </tfoot>
                                         <tbody>
                                             <tr th:each=" status,no : ${status}">
-                                                <td th:text="${no.count}"></td>
-                                                <td hidden="" th:text="${status.id}"></td>
-                                                <td th:text="${status.name}"></td>
+                                                <td id="no" th:text="${no.count}"></td>
+                                                <td id="id" hidden="" th:text="${status.id}"></td>
+                                                <td id="name" th:text="${status.name}"></td>
                                                 <td>
-                                                    <a th:href="@{'/status/delete/' + ${status.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <a th:href="@{'/admin/status/delete/' + ${status.id}}" class="btn btn-sm btn-outline-danger">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
                                                     </a>
-                                                    <button type="button" class="btn btn-sm btn-outline-primary editModal">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" data-target="#modalEdit" data-toggle="modal">
                                                         <span class="icon">
                                                             <i class="fas fa-edit"></i>
                                                         </span>
@@ -81,7 +81,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/status/save}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/status/save}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">Status</label>
                                                 <div class="col-sm-12">
@@ -115,7 +115,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/status/edit}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/status/edit}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">ID</label>
                                                 <div class="col-sm-12">
@@ -156,14 +156,16 @@
         <div th:replace="fragments/footer::footer"></div>
         <script>
             $(document).ready(function () {
-                $('.editModal').on('click', function () {
-                    var row = $(this).closest('tr');
-                    var a = row.find('td:eq(1)').text();
-                    var b = row.find('td:eq(2)').text();
-//                    alert(a);
-                    $('#modalEdit').modal();
-                    $('#modalId').val(a);
-                    $('#modalName').val(b);
+                $('#modalEdit').on('show.bs.modal', function (e) {
+                    var btn = $(e.relatedTarget);
+                    var row = btn.parents("tr");
+                    
+                    var a = row.find("#id").text();
+                    var b = row.find("#name").text();
+//                    alert(b);
+                    
+                    $(this).find('#modalId').val(a);
+                    $(this).find('#modalName').val(b);
                 });
             });
         </script>

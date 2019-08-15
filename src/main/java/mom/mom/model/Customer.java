@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "customer")
@@ -108,6 +108,33 @@ public class Customer implements Serializable {
         this.email = email;
         this.address = address;
     }
+
+    public Customer(Integer id, String name, String pic, String phone, String email, String address, Province province, District district, Subdistrict subdistrict, Urbanvillage urbanvillage) {
+        this.id = id;
+        this.name = name;
+        this.pic = pic;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.province = province;
+        this.district = district;
+        this.subdistrict = subdistrict;
+        this.urbanvillage = urbanvillage;
+    }
+
+    public Customer(String name, String pic, String phone, String email, String address, Province province, District district, Subdistrict subdistrict, Urbanvillage urbanvillage) {
+        this.name = name;
+        this.pic = pic;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.province = province;
+        this.district = district;
+        this.subdistrict = subdistrict;
+        this.urbanvillage = urbanvillage;
+    }
+    
+    
 
     public Integer getId() {
         return id;

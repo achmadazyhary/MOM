@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HARRY-PC
+ * @author Bella
  */
 @Entity
 @Table(name = "employee")
@@ -42,6 +42,14 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")})
 public class Employee implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pic", fetch = FetchType.LAZY)
+    private List<Mom> momList;
+
+//    @Basic(optional = false)
+//    @NotNull
+    @Column(name = "isactive")
+    private boolean isactive;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,6 +84,8 @@ public class Employee implements Serializable {
 //    @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "actionby", fetch = FetchType.LAZY)
+    private List<Approval> approvalList;
     @JoinColumn(name = "role", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role role;
@@ -104,6 +114,28 @@ public class Employee implements Serializable {
         this.password = password;
     }
 
+    public Employee(Integer id, String name, String lastname, String phone, String email, String password, Role role, boolean isactive) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.isactive = isactive;
+    }
+
+    public Employee(String name, String lastname, String phone, String email, String password, Role role, boolean isactive) {
+        this.name = name;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.isactive = isactive;
+    }
+
+    
     public Integer getId() {
         return id;
     }
@@ -150,6 +182,15 @@ public class Employee implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @XmlTransient
+    public List<Approval> getApprovalList() {
+        return approvalList;
+    }
+
+    public void setApprovalList(List<Approval> approvalList) {
+        this.approvalList = approvalList;
     }
 
     public Role getRole() {
@@ -219,6 +260,23 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "mom.mom.model.Employee[ id=" + id + " ]";
+    }
+
+    public boolean getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(boolean isactive) {
+        this.isactive = isactive;
+    }
+
+    @XmlTransient
+    public List<Mom> getMomList() {
+        return momList;
+    }
+
+    public void setMomList(List<Mom> momList) {
+        this.momList = momList;
     }
     
 }
