@@ -92,6 +92,19 @@ public class EmpController {
         return "headerE";
     }
     
+    @GetMapping("/pic")
+    public String pic(Model model){
+        model.addAttribute("employee", esi.findByEmail(currentUserName()).getName());
+        model.addAttribute("picId", esi.findByEmail(currentUserName()).getId());
+        return "pic";
+    }
+    
+    @GetMapping("/manager")
+    public String manager(Model model){
+        model.addAttribute("employee", esi.findByEmail(currentUserName()).getName());
+        return "manager";
+    }
+    
     @GetMapping("/pic/meetingform")
     public String meetingform(Model model){
         model.addAttribute("meeting", msi.findAll());
@@ -369,6 +382,14 @@ public class EmpController {
         model.addAttribute("meeting", msi.findAll());
         model.addAttribute("employee", esi.findAll());
         return "approval";
+    }
+    @GetMapping("/manager/approvalhistory")
+    public String approvalhistory(Model model){
+        model.addAttribute("mom", momsi.findAll());
+        model.addAttribute("followup", fsi.findAll());
+        model.addAttribute("meeting", msi.findAll());
+        model.addAttribute("employee", esi.findAll());
+        return "approvalhistory";
     }
     
     @PostMapping("/manager/approval/update")

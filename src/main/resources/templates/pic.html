@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta name="description" content="">
+    <div th:replace="fragments/headerE::header-css"></div>
+
+
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <div th:replace="fragments/headerE::sidebar"></div>    
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <div th:replace="fragments/headerE::topnav"></div>
+                <!-- Begin Page Content -->
+                <siv class="container-fluid">
+                    <!--                        <button type="button" class="btn btn-sm btn-outline-primary btn-icon-split" data-toggle="modal" data-target="#modalAttendees">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-plus"></i>
+                                                </span>
+                                                <span class="text">Add Attendees</span>
+                                            </button>
+                                            <br>
+                                            <br>-->
+                    
+                <!-- /.container-fluid -->  
+            </div>
+            <!-- End of Main Content -->
+            <div th:replace="fragments/headerE::footer"></div>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <div th:replace="fragments/footer::footer"></div>
+    <script>
+        $('#modalEdit').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _id = _row.find("#id").text();
+            var _name = _row.find("#name").text();
+            var _project = _row.find("#project").text();
+            var _date = _row.find("#date").text();
+            var _time = _row.find("#time").text();
+            var _type = _row.find("#type").text();
+            var _customerId = _row.find("#customerId").text();
+            var _customer = _row.find("#customer").text();
+            var _managerId = _row.find("#managerId").text();
+            var _manager = _row.find("#manager").text();
+            var _picId = _row.find("#picId").text();
+            var _pic = _row.find("#pic").text();
+            var _location = _row.find("#location").text();
+    //                    alert(_id);
+            $(this).find('#modalId').val(_id);
+            $(this).find('#modalName').val(_name);
+            $(this).find('#modalProject').val(_project);
+            $(this).find('#modalDate').val(_date);
+            $(this).find('#modalTime').val(_time);
+            $(this).find('#modalType').val(_type);
+            $(this).find('#modalCustomer').val(_customerId);
+    //                $(this).find('#modalCustomer').val(_customer);
+            $(this).find('#modalManager').val(_managerId);
+    //                $(this).find('#modalManager').val(_manager);
+            $(this).find('#modalPIC').val(_picId);
+            $(this).find('#modalLocation').val(_location);
+    //                $(this).find('#modalPIC').val(_pic);
+        });
+    </script>
+    <script>
+        $('#modalAttendees').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _id = _row.find("#id").text();
+            var _meeting = _row.find("#name").text();
+
+    //                    alert(_id);
+            $(this).find('#modalId').val(_id);
+            $(this).find('#modalMeeting').val(_meeting);
+        });
+    </script>
+    <script>
+        $('#modalSendEmail').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _meeting = _row.find("#meeting").text();
+            var _project = _row.find("#project").text();
+            var _name = _row.find("#name").text();
+            var _lastName = _row.find("#lastName").text();
+            var _email = _row.find("#email").text();
+            var _date = _row.find("#date").text();
+            var _time = _row.find("#time").text();
+            var _location = _row.find("#location").text();
+            var _type = _row.find("#type").text();
+            var _custCompany = _row.find("#custCompany").text();
+            var _custPic = _row.find("#custPic").text();
+            var _custEmail = _row.find("#custEmail").text();
+            var _manager = _row.find("#manager").text();
+            var _pic = _row.find("#pic").text();
+            var _picLastName = _row.find("#picLastName").text();
+
+    //                    alert(_id);
+            $(this).find('#modalMeeting').val(_meeting);
+            $(this).find('#modalProject').val(_project);
+            $(this).find('#modalName').val(_name);
+            $(this).find('#modalLastName').val(_lastName);
+            $(this).find('#modalEmail').val(_email);
+            $(this).find('#modalDate').val(_date);
+            $(this).find('#modalTime').val(_time);
+            $(this).find('#modalLocation').val(_location);
+            $(this).find('#modalType').val(_type);
+            $(this).find('#modalCustCompany').val(_custCompany);
+            $(this).find('#modalCustPic').val(_custPic);
+            $(this).find('#modalCustEmail').val(_custEmail);
+            $(this).find('#modalManager').val(_manager);
+            $(this).find('#modalPic').val(_pic);
+            $(this).find('#modalPicLastName').val(_picLastName);
+        });
+    </script>
+    <script>
+        $('#modalSendEmailCustomer').on('show.bs.modal', function (e) {
+            var _button = $(e.relatedTarget);
+            var _row = _button.parents("tr");
+
+            var _meeting = _row.find("#name").text();
+            var _project = _row.find("#project").text();
+            var _date = _row.find("#date").text();
+            var _time = _row.find("#time").text();
+            var _location = _row.find("#location").text();
+            var _type = _row.find("#type").text();
+            var _custCompany = _row.find("#customer").text();
+            var _custPic = _row.find("#customerPic").text();
+            var _custEmail = _row.find("#customerEmail").text();
+            var _manager = _row.find("#manager").text();
+            var _pic = _row.find("#pic").text();
+            var _picLastName = _row.find("#picLastName").text();
+
+    //                    alert(_id);
+            $(this).find('#modalMeeting').val(_meeting);
+            $(this).find('#modalProject').val(_project);
+            $(this).find('#modalDate').val(_date);
+            $(this).find('#modalTime').val(_time);
+            $(this).find('#modalLocation').val(_location);
+            $(this).find('#modalType').val(_type);
+            $(this).find('#modalCustCompany').val(_custCompany);
+            $(this).find('#modalCustPic').val(_custPic);
+            $(this).find('#modalCustEmail').val(_custEmail);
+            $(this).find('#modalManager').val(_manager);
+            $(this).find('#modalPic').val(_pic);
+            $(this).find('#modalPicLastName').val(_picLastName);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#openBtn').click(function () {
+                $('#myModal').modal({
+                    show: true
+                });
+            });
+
+            $(document).on('show.bs.modal', '.modal', function (event) {
+                var zIndex = 1040 + (10 * $('.modal:visible').length);
+                $(this).css('z-index', zIndex);
+                setTimeout(function () {
+                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                }, 0);
+            });
+
+
+        });
+    </script>
+
+</body>
+</html>

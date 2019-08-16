@@ -42,7 +42,7 @@
                                             <th>Date</th>
                                             <th hidden="">Time</th>
                                             <th hidden="">Location</th>
-                                            <th hidden="">Status Name</th>
+                                            
                                             <th hidden="">Status Id</th>
                                             <th hidden="">Manager Id</th>
                                             <th hidden="">Manager Name</th>
@@ -55,6 +55,7 @@
                                             <th>Customer Name</th>
                                             <th hidden="">Customer Pic</th>
                                             <th hidden="">Customer Email</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -68,7 +69,6 @@
                                             <th>Date</th>
                                             <th hidden="">Time</th>
                                             <th hidden="">Location</th>
-                                            <th hidden="">Status Name</th>
                                             <th hidden="">Status Id</th>
                                             <th hidden="">Manager Id</th>
                                             <th hidden="">Manager Name</th>
@@ -81,11 +81,12 @@
                                             <th >Customer Name</th>
                                             <th hidden="">Customer Pic</th>
                                             <th hidden="">Customer Email</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr th:each=" mom,no : ${mom}" th:if="@{mom.status.id} == '1'" >
+                                        <tr th:each=" mom,no : ${mom}">
                                             <td id="no" th:text="${no.count}"></td>
                                             <td  hidden="" id="id" th:text="${mom.id}"></td>
                                             <td hidden="" id="desc" th:text="${mom.meetingdesc}"></td>
@@ -94,7 +95,6 @@
                                             <td id="date" th:text="${mom.meeting.date}"></td>
                                             <td hidden="" id="time" th:text="${mom.meeting.time}"></td>
                                             <td hidden="" id="location" th:text="${mom.meeting.location}"></td>
-                                            <td hidden="" id="statusName" th:text="${mom.status.name}"></td>
                                             <td hidden="" id="statusId" th:text="${mom.status.id}"></td>
                                             <td hidden="" id="managerId" th:text="${mom.meeting.manager.id}"></td>
                                             <td hidden="" id="managerName" th:text="${mom.meeting.manager.name}"></td>
@@ -107,22 +107,14 @@
                                             <td  id="custName" th:text="${mom.meeting.customer.name}"></td>
                                             <td hidden="" id="custPic" th:text="${mom.meeting.customer.pic}"></td>
                                             <td hidden="" id="custEmail" th:text="${mom.meeting.customer.email}"></td>
+                                            <td id="statusName" th:text="${mom.status.name}"></td>
                                             <td>                                                   
                                                 <button data-target="#modalDetail" data-toggle="modal" type="button" class="btn btn-sm btn-outline-primary">
                                                     <span class="icon">
-                                                        <i class="fas fa-check-circle"></i>
+                                                        <i class="fas fa-info-circle"></i>
                                                     </span>
                                                 </button>
-                                                <button data-target="#modalPrint" data-toggle="modal" taype="button" class="btn btn-sm btn-outline-primary">
-                                                    <span class="icon">
-                                                        <i class="fas fa-print"></i>
-                                                    </span>
-                                                </button>
-                                                <button data-target="#modalEmail" data-toggle="modal" taype="button" class="btn btn-sm btn-outline-primary">
-                                                    <span class="icon">
-                                                        <i class="fas fa-paper-plane"></i>
-                                                    </span>
-                                                </button>
+            
                                             </td>
                                         </tr>
                                     </tbody>
@@ -185,14 +177,20 @@
                                             <div class="col-sm-12">
                                                 <input type="hidden" id="modalStatusId" name="statusId" class="form-control" value="" required="required" readonly="">
                                             </div>
-                                            <div class="col-sm-12">
-                                                <input type="hidden" id="modalStatusName" name="statusName" class="form-control" value="" required="required" readonly="">
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Status</label>
+                                                <div class="col-sm-12">
+                                                <input type="text" id="modalStatusName" name="statusName" class="form-control" value="" required="required" readonly="">
+                                            </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <input type="hidden" id="modalManagerId" name="managerId" class="form-control" value="" required="required" readonly="">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Manager</label>
                                             <div class="col-sm-12">
-                                                <input type="hidden" id="modalManagerName" name="managerName" class="form-control" value="" required="required" readonly="">
+                                                <input type="text" id="modalManagerName" name="managerName" class="form-control" value="" required="required" readonly="">
+                                            </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <input type="hidden" id="modalManagerLastName" name="managerLastName" class="form-control" value="" required="required" readonly="">
@@ -200,8 +198,11 @@
                                             <div class="col-sm-12">
                                                 <input type="hidden" id="modalPicId" name="picId" class="form-control" value="" required="required" readonly="">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">PIC</label>
                                             <div class="col-sm-12">
-                                                <input type="hidden" id="modalPicName" name="picName" class="form-control" value="" required="required" readonly="">
+                                                <input type="text" id="modalPicName" name="picName" class="form-control" value="" required="required" readonly="">
+                                            </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <input type="hidden" id="modalPicLastName" name="picLastName" class="form-control" value="" required="required" readonly="">
@@ -209,15 +210,23 @@
                                             <div class="col-sm-12">
                                                 <input type="hidden" id="modalPicEmail" name="picEmail" class="form-control" value="" required="required" readonly="">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Date</label>
                                             <div class="col-sm-12">
-                                                <input type="hidden" id="modalDate" name="date" class="form-control" value="" required="required" readonly="">
+                                                <input type="text" id="modalDate" name="date" class="form-control" value="" required="required" readonly="">
                                             </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Time</label>
                                             <div class="col-sm-12">
-                                                <input type="hidden" id="modalTime" name="time" class="form-control" value="" required="required" readonly="">
+                                                <input type="text" id="modalTime" name="time" class="form-control" value="" required="required" readonly="">
                                             </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="input" class="col-sm control-label">Location</label>
                                             <div class="col-sm-12">
-                                                <input type="hidden" id="modalLocation" name="location" class="form-control" value="" required="required" readonly="">
-                                            </div>
+                                                 <textarea id="modalLocation" name="location" class="form-control" rows="7" readonly=""></textarea>
+                                                 </div>
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">Meeting</label>
                                                 <div class="col-sm-12">
@@ -227,7 +236,7 @@
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">Meeting Description</label>
                                                 <div class="col-sm-12">
-                                                    <textarea id="modalDesc" name="desc" class="form-control" rows="7" readonly=""></textarea>
+                                                    <textarea id="modalDesc" name="desc" class="form-control" rows="2" readonly=""></textarea>
                                                 </div>
                                             </div>
 
@@ -259,23 +268,6 @@
 
                                                         </tbody>
                                                     </table>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="form-group" align="right">
-                                                <label for="input" class="col-sm control-label">Note</label>
-                                                <div class="col-sm-12">
-                                                    <textarea id="modalNote" name="note" class="form-control" rows="5"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <br>
-
-                                            <div class="form-group">
-                                                <div class="col-sm-12 col-sm-offset-2" align="right">
-
-                                                    <input type="submit" name="status" value="Approve"  class="btn btn-sm btn-outline-primary">
-                                                    <input type="submit" name="status" value="Reject" class="btn btn-sm btn-outline-danger">
                                                 </div>
                                             </div>
                                         </form>
