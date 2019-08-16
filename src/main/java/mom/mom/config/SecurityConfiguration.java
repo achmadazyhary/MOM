@@ -95,6 +95,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/scss/**").permitAll()
                 .antMatchers("/vendor/**").permitAll()
+                .antMatchers("/dashboard").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/pic/**").hasAnyAuthority("PIC")
                 .antMatchers("/manager/**").hasAnyAuthority("MANAGER")

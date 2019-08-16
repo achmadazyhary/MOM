@@ -50,7 +50,7 @@ public class LoginSuccessHendler extends SimpleUrlAuthenticationSuccessHandler{
 
         //check user role and decide the direct URL
         if (roles.contains("ADMIN")) {
-            url = "/admin";
+            url = "/dashboard";
         } else if (roles.contains("PIC")) {
             url = "/pic";
         } else if (roles.contains("MANAGER")) {

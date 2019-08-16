@@ -50,7 +50,7 @@
                                                 <td id="no" th:text="${no.count}"></td>
                                                 <td id="id" hidden="" th:text="${role.id}"></td>
                                                 <td id="name" th:text="${role.name}"></td>
-                                                <td><a th:href="@{'/admin/role/delete/' + ${role.id}}" class="btn btn-sm btn-outline-danger btn-icon-split">
+                                                <td><a class="btn btn-sm btn-outline-danger btn-icon-split" th:onclick="|deleted(${role.id})|">
                                                         <span class="icon text-black-50">
                                                             <i class="fas fa-trash"></i>
                                                         </span><span class="text">Delete</span></a>
@@ -163,6 +163,28 @@
                     $(this).find('#modalName').val(b);
                 });
             });
+        </script>
+        <script>
+            function deleted(id) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                                )
+                        window.location.href = '/admin/role/delete/' + id;
+                    }
+                })
+            }
         </script>
     </body>
 </html>

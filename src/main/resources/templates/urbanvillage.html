@@ -61,7 +61,7 @@
                                                 <td th:text="${urbanvillage.subdistrict.name}"></td>
                                                 <td hidden="" th:text="${urbanvillage.subdistrict.id}"></td>
                                                 <td>
-                                                    <a th:href="@{'/admin/urbanvillage/delete/' + ${urbanvillage.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <a class="btn btn-sm btn-outline-danger" th:onclick="|deleted(${urbanvillage.id})|">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
@@ -209,6 +209,28 @@
                     $('#modalSubDistrict').val(e);
                 });
             });
+        </script>
+        <script>
+            function deleted(id) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                                )
+                        window.location.href = '/admin/urbanvillage/delete/' + id;
+                    }
+                })
+            }
         </script>
     </body>
 </html>
